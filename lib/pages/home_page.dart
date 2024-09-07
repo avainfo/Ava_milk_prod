@@ -1,3 +1,4 @@
+import 'package:ava_milk_prod/pages/main_button.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -43,5 +44,13 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          Wrap(
+            children: [
+              MainButton(),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
