@@ -1,7 +1,9 @@
 import 'package:ava_milk_prod/components/main_button.dart';
 import 'package:ava_milk_prod/components/nav_bar.dart';
+import 'package:ava_milk_prod/pages/main_page.dart';
 import 'package:ava_milk_prod/pages/seeding.dart';
 import 'package:ava_milk_prod/pages/washing.dart';
+import 'package:ava_milk_prod/utils/configurations.dart';
 import 'package:ava_milk_prod/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +18,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Map<String, Widget> pages = {
-    "Ensemencement": Seeding(),
+  Map<String, StatefulWidget> pages = {
+    "Ensemencement": MainPage(
+      title: "Ensemencement:0",
+      configs: Configurations.SEEDING_CONFIGURATIONS,
+    ),
     "Fabrication": Manufacturing(),
     "Congélation": Freezing(),
     "Lavage": Washing(),
