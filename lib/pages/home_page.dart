@@ -1,5 +1,12 @@
-import 'package:ava_milk_prod/pages/main_button.dart';
+import 'package:ava_milk_prod/components/main_button.dart';
+import 'package:ava_milk_prod/components/nav_bar.dart';
+import 'package:ava_milk_prod/pages/seeding.dart';
+import 'package:ava_milk_prod/pages/washing.dart';
+import 'package:ava_milk_prod/utils/constants.dart';
 import 'package:flutter/material.dart';
+
+import 'freezing.dart';
+import 'manufacturing.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,47 +16,53 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool darkMode = false;
+  Map<String, Widget> pages = {
+    "Ensemencement": Seeding(),
+    "Fabrication": Manufacturing(),
+    "Congélation": Freezing(),
+    "Lavage": Washing(),
+  };
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var safePadding = MediaQuery.of(context).padding.top;
+    var width = size.width;
+    var height = size.height - safePadding;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFEEEEEEE),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image(
-                  image: AssetImage("assets/logo.png"),
-                  height: MediaQuery.of(context).size.height / 8,
-                ),
-                IconButton(
-                  onPressed: () => {
-                    setState(() {
-                      darkMode = !darkMode;
-                    })
-                  },
-                  icon: Icon(
-                    darkMode
-                        ? Icons.light_mode_outlined
-                        : Icons.dark_mode_outlined,
-                    size: MediaQuery.of(context).size.height / 15,
-                    weight: 1,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Wrap(
+      backgroundColor: const Color(0xFFEEEEEE),
+      body: SafeArea(
+        child: SizedBox(
+          width: width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MainButton(),
+              NavBar(
+                title: "",
+                width: width,
+                height: height,
+                event: () {
+                  setState(() {
+                    Constants.darkMode = !Constants.darkMode;
+                  });
+                },
+              ),
+              SizedBox(
+                width: width / 5 * 4,
+                height: height - height / 10 * 2,
+                child: Wrap(
+                  alignment: WrapAlignment.spaceAround,
+                  runAlignment: WrapAlignment.spaceAround,
+                  children: pages.entries.map((entry) {
+                    return MainButton(title: entry.key, route: entry.value);
+                  }).toList(),
+                ),
+              ),
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
