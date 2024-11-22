@@ -2,9 +2,10 @@ import 'package:ava_milk_prod/components/inputs/incrementer.dart';
 import 'package:ava_milk_prod/components/inputs/inputs_label.dart';
 import 'package:ava_milk_prod/components/inputs/text_input.dart';
 import 'package:ava_milk_prod/components/nav_bar.dart';
-import 'package:ava_milk_prod/components/nav_buttons/nav_buttons.dart';
 import 'package:ava_milk_prod/utils/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../components/buttons/nav_buttons/nav_buttons.dart';
 
 class Seeding extends StatefulWidget {
   const Seeding({super.key});
