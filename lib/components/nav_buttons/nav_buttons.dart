@@ -18,11 +18,11 @@ class _NavButtonsState extends State<NavButtons> {
     var width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        Navigator.pop(context);
+        widget.active ? widget.event() : Navigator.pop(context);
       },
       child: Container(
         decoration: BoxDecoration(
-          color: widget.active ? Color(0xFFEB2831) : Colors.black.withOpacity(0.40),
+          color: widget.active ? const Color(0xFFEB2831) : Colors.black.withOpacity(0.40),
           borderRadius: BorderRadius.circular(15),
         ),
         padding: EdgeInsets.symmetric(vertical: height / 70, horizontal: width / 30),
