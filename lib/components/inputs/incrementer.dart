@@ -1,4 +1,4 @@
-import 'package:ava_milk_prod/components/inputs/incrementer_button.dart';
+import 'package:ava_milk_prod/components/buttons/incrementer_button.dart';
 import 'package:flutter/material.dart';
 
 class Incrementer extends StatefulWidget {

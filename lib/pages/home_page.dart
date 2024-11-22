@@ -1,4 +1,4 @@
-import 'package:ava_milk_prod/components/main_button.dart';
+import 'package:ava_milk_prod/components/buttons/main_button.dart';
 import 'package:ava_milk_prod/components/nav_bar.dart';
 import 'package:ava_milk_prod/pages/main_page.dart';
 import 'package:ava_milk_prod/pages/seeding.dart';

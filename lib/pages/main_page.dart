@@ -4,9 +4,9 @@ import 'package:ava_milk_prod/pages/home_page.dart';
 import 'package:ava_milk_prod/utils/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../components/buttons/nav_buttons/nav_buttons.dart';
 import '../components/inputs/inputs_label.dart';
 import '../components/nav_bar.dart';
-import '../components/nav_buttons/nav_buttons.dart';
 
 class MainPage extends StatefulWidget {
   final String title;
