@@ -12,8 +12,9 @@ import '../components/nav_bar.dart';
 class MainPage extends StatefulWidget {
   final String title;
   final List<Map<String, StatefulWidget>> configs;
+  final DateTime selectedDate;
 
-  const MainPage({super.key, required this.title, required this.configs});
+  const MainPage({super.key, required this.title, required this.configs, required this.selectedDate});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -22,15 +23,16 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   var controller = TextEditingController();
   late int id;
-  var title;
-  var config;
+  late String title;
+  late Map<String, StatefulWidget> config;
+  late DateTime selectedDate;
 
   @override
   void initState() {
     id = int.parse(widget.title.split(":")[1]);
     title = widget.title.split(":")[0];
     config = widget.configs[id];
-    log("Test");
+    selectedDate = widget.selectedDate;
     super.initState();
   }
 
@@ -52,7 +54,13 @@ class _MainPageState extends State<MainPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 NavBar(
-                  title: widget.runtimeType.toString(),
+                  title: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 30,
+                      color: Color(0xFF6E6E6E),
+                    ),
+                  ),
                   width: width,
                   height: height,
                   event: () {
@@ -108,7 +116,7 @@ class _MainPageState extends State<MainPage> {
                         event: () {
                           log((id + 1).toString());
                           log(widget.configs.length.toString());
-                          // DatabaseConnection.sendData()
+                          // TODO : DatabaseConnection.sendData()
                           if (widget.configs.length == (id + 1)) {
                             Navigator.pushAndRemoveUntil(
                               context,
@@ -119,7 +127,11 @@ class _MainPageState extends State<MainPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => MainPage(title: title + ":" + (id + 1).toString(), configs: widget.configs),
+                                builder: (context) => MainPage(
+                                  title: "$title:${id + 1}",
+                                  configs: widget.configs,
+                                  selectedDate: selectedDate,
+                                ),
                               ),
                             );
                           }

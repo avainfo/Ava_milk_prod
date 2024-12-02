@@ -1,12 +1,17 @@
 import 'package:ava_milk_prod/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DatepickerText extends StatefulWidget {
+class DatePickerText extends StatefulWidget {
+  final Function changeDateEvent;
+
+  const DatePickerText({super.key, required this.changeDateEvent});
+
   @override
-  State<DatepickerText> createState() => _DatepickerTextState();
+  State<DatePickerText> createState() => _DatePickerTextState();
 }
 
-class _DatepickerTextState extends State<DatepickerText> {
+class _DatePickerTextState extends State<DatePickerText> {
   DateTime _selectedDate = DateTime.now();
 
   Future<void> _openDatePicker() async {
@@ -15,11 +20,25 @@ class _DatepickerTextState extends State<DatepickerText> {
       initialDate: _selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Constants.red,
+              onPrimary: Colors.white,
+              onSurface: Constants.red,
+            ),
+            dialogBackgroundColor: Constants.darkMode ? CupertinoColors.darkBackgroundGray : Colors.white,
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (pickedDate != null && pickedDate != _selectedDate) {
       setState(() {
         _selectedDate = pickedDate;
+        widget.changeDateEvent(pickedDate);
       });
     }
   }

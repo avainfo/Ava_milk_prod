@@ -1,7 +1,7 @@
 import 'package:ava_milk_prod/components/buttons/main_button.dart';
 import 'package:ava_milk_prod/components/nav_bar.dart';
+import 'package:ava_milk_prod/components/utils/date_picker_text.dart';
 import 'package:ava_milk_prod/pages/main_page.dart';
-import 'package:ava_milk_prod/pages/seeding.dart';
 import 'package:ava_milk_prod/pages/washing.dart';
 import 'package:ava_milk_prod/utils/configurations.dart';
 import 'package:ava_milk_prod/utils/constants.dart';
@@ -18,15 +18,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Map<String, StatefulWidget> pages = {
-    "Ensemencement": MainPage(
-      title: "Ensemencement:0",
-      configs: Configurations.SEEDING_CONFIGURATIONS,
-    ),
-    "Fabrication": Manufacturing(),
-    "Congélation": Freezing(),
-    "Lavage": Washing(),
-  };
+  late DateTime date;
+  late Map<String, StatefulWidget> pages;
+
+  @override
+  void initState() {
+    super.initState();
+    date = DateTime.now();
+    pages = {
+      "Ensemencement": MainPage(
+        title: "Ensemencement:0",
+        configs: Configurations.SEEDING_CONFIGURATIONS,
+        selectedDate: date,
+      ),
+      "Fabrication": Manufacturing(),
+      "Congélation": Freezing(),
+      "Lavage": Washing(),
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +54,11 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               NavBar(
-                title: "",
+                title: DatePickerText(changeDateEvent: (newDate) {
+                  setState(() {
+                    date = newDate;
+                  });
+                }),
                 width: width,
                 height: height,
                 event: () {

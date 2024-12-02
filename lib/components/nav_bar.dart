@@ -10,7 +10,7 @@ class NavBar extends StatelessWidget {
     required this.event,
   });
 
-  final String title;
+  final Widget title;
   final double width;
   final double height;
   final Function() event;
@@ -29,13 +29,7 @@ class NavBar extends StatelessWidget {
             image: const AssetImage("assets/logo.png"),
             height: MediaQuery.of(context).size.height / 8,
           ),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 30,
-              color: Color(0xFF6E6E6E),
-            ),
-          ),
+          title,
           IconButton(
             onPressed: () => event,
             icon: Icon(
