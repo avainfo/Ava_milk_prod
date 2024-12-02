@@ -13,7 +13,7 @@ class InputsLabel extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height / 40),
+      margin: EdgeInsets.symmetric(vertical: height / 40),
       height: height / 15,
       width: width / 4,
       child: Row(

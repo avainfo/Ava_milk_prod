@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../utils/constants.dart';
+
 class NavButtons extends StatefulWidget {
   final String title;
   final Function event;
@@ -22,7 +24,7 @@ class _NavButtonsState extends State<NavButtons> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: widget.active ? const Color(0xFFEB2831) : Colors.black.withOpacity(0.40),
+          color: widget.active ? Constants.red : Colors.black.withOpacity(0.40),
           borderRadius: BorderRadius.circular(15),
         ),
         padding: EdgeInsets.symmetric(vertical: height / 70, horizontal: width / 30),

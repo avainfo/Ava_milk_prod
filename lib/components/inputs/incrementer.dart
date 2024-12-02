@@ -1,6 +1,8 @@
 import 'package:ava_milk_prod/components/buttons/incrementer_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/constants.dart';
+
 class Incrementer extends StatefulWidget {
   const Incrementer({
     super.key,
@@ -29,9 +31,9 @@ class _IncrementerState extends State<Incrementer> {
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              border: const Border.fromBorderSide(
+              border: Border.fromBorderSide(
                 BorderSide(
-                  color: Color(0xFFEB2831),
+                  color: Constants.red,
                   width: 2,
                 ),
               ),

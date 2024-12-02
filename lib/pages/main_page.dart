@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ava_milk_prod/components/inputs/selector.dart';
 import 'package:ava_milk_prod/pages/home_page.dart';
 import 'package:ava_milk_prod/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -69,12 +70,21 @@ class _MainPageState extends State<MainPage> {
                         width: width / 4,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: config.keys.map<InputsLabel>((String e) => InputsLabel(title: e)).toList(),
-                          // InputsLabel(title: "Nb de louches"),
-                          // InputsLabel(title: "Lot"),
-                          // InputsLabel(title: "Omega"),
-                          // InputsLabel(title: "Sigma"),
-                          // InputsLabel(title: "Temp (°C)"),
+                          children: config.keys.expand<Widget>((String e) {
+                            if (config[e] is Selector) {
+                              var widgetHeight = (height / 15 + 20) * 4 + height / 20;
+                              return [
+                                InputsLabel(title: e),
+                                SizedBox(
+                                  height: (widgetHeight - (height / 15) - height / 20),
+                                ),
+                              ];
+                            } else {
+                              return [
+                                InputsLabel(title: e),
+                              ];
+                            }
+                          }).toList(),
                         ),
                       ),
                       SizedBox(
@@ -94,7 +104,7 @@ class _MainPageState extends State<MainPage> {
                     children: <Widget>[
                       NavButtons(title: "Précédent", event: () => Navigator.pop(context)),
                       NavButtons(
-                        title: "Suivant",
+                        title: widget.configs.length == (id + 1) ? "Terminer" : "Suivant",
                         event: () {
                           log((id + 1).toString());
                           log(widget.configs.length.toString());

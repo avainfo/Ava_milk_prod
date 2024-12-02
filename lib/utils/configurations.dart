@@ -1,22 +1,39 @@
+import 'package:ava_milk_prod/components/inputs/selector.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../components/inputs/incrementer.dart';
 import '../components/inputs/text_input.dart';
 
 class Configurations {
-  static List<Map<String, StatefulWidget>> SEEDING_CONFIGURATIONS = [
+  static const List<Map<String, StatefulWidget>> SEEDING_CONFIGURATIONS = [
     {
-      "Nb louches": const Incrementer(),
-      "Lot": const TextInput(),
-      "Omega": const Incrementer(),
-      "Sigma": const Incrementer(),
-      "Temp (°C)": const Incrementer(),
+      "Acid Lait (pH)": Incrementer(),
+      "Acid Serum (pH)": Incrementer(),
+      "Qualité du caille": Selector(
+        buttons: [
+          "Beau",
+          "Mou",
+          "Troué",
+          "Rétracté",
+          "Correct",
+          "Fissure",
+          "Gonflé",
+          "Platisque",
+        ],
+      ),
     },
     {
-      "Litrage tomme": const Incrementer(),
-      "Nb de tommes": const Incrementer(),
-      "Litrage yaourt": const Incrementer(),
-      "Nb de pots": const Incrementer(),
+      "Nb louches": Incrementer(),
+      "Lot": TextInput(),
+      "Omega": Incrementer(),
+      "Sigma": Incrementer(),
+      "Temp (°C)": Incrementer(),
+    },
+    {
+      "Litrage tomme": Incrementer(),
+      "Nb de tommes": Incrementer(),
+      "Litrage yaourt": Incrementer(),
+      "Nb de pots": Incrementer(),
     }
   ];
 }

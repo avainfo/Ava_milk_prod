@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/constants.dart';
+
 class IncrementerButton extends StatelessWidget {
   const IncrementerButton({
     super.key,
@@ -23,7 +25,7 @@ class IncrementerButton extends StatelessWidget {
           return IconButton(
             style: ButtonStyle(
               shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-              backgroundColor: const WidgetStatePropertyAll(Color(0xFFEB2831)),
+              backgroundColor: WidgetStatePropertyAll(Constants.red),
             ),
             color: Colors.white,
             onPressed: () {

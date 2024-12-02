@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/constants.dart';
+
 class TextInput extends StatefulWidget {
   const TextInput({
     super.key,
@@ -39,16 +41,16 @@ class _TextInputState extends State<TextInput> {
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Color(0xFFEB2831),
+                        borderSide: BorderSide(
+                          color: Constants.red,
                           style: BorderStyle.solid,
                           width: 2,
                         ),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Color(0xFFEB2831),
+                        borderSide: BorderSide(
+                          color: Constants.red,
                           style: BorderStyle.solid,
                           width: 6,
                         ),
