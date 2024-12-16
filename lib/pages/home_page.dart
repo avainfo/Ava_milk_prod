@@ -2,13 +2,9 @@ import 'package:ava_milk_prod/components/buttons/main_button.dart';
 import 'package:ava_milk_prod/components/nav_bar.dart';
 import 'package:ava_milk_prod/components/utils/date_picker_text.dart';
 import 'package:ava_milk_prod/pages/main_page.dart';
-import 'package:ava_milk_prod/pages/washing.dart';
 import 'package:ava_milk_prod/utils/configurations.dart';
 import 'package:ava_milk_prod/utils/constants.dart';
 import 'package:flutter/material.dart';
-
-import 'freezing.dart';
-import 'manufacturing.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -81,11 +77,19 @@ class _HomePageState extends State<HomePage> {
                     ),
                     MainButton(
                       title: "Congélation",
-                      route: Freezing(),
+                      route: MainPage(
+                        title: "Manufacturing:0",
+                        configs: Configurations.SEEDING_CONFIGURATIONS,
+                        selectedDate: date,
+                      ),
                     ),
                     MainButton(
                       title: "Lavage",
-                      route: Washing(),
+                      route: MainPage(
+                        title: "Manufacturing:0",
+                        configs: Configurations.SEEDING_CONFIGURATIONS,
+                        selectedDate: date,
+                      ),
                     ),
                   ],
                 ),
