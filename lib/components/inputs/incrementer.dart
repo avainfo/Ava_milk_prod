@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import '../../utils/constants.dart';
 
 class Incrementer extends StatefulWidget {
+  final Function(int)? onValueChanged;
+
   const Incrementer({
     super.key,
+    this.onValueChanged,
   });
 
   @override
@@ -16,9 +19,24 @@ class _IncrementerState extends State<Incrementer> {
   var controller = TextEditingController(text: "0");
 
   @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      final value = int.tryParse(controller.text) ?? 0;
+      widget.onValueChanged?.call(value);
+    });
+  }
+
+  void _updateControllerValue(int delta) {
+    final currentValue = int.tryParse(controller.text) ?? 0;
+    controller.text = (currentValue + delta).toString();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height / 40),
       height: height / 15,
@@ -47,6 +65,7 @@ class _IncrementerState extends State<Incrementer> {
                   controller: controller,
                   icon: Icons.remove,
                   value: -1,
+                  onPressed: () => _updateControllerValue(-1), // Diminue la valeur
                 ),
                 Expanded(
                   child: TextField(
@@ -61,6 +80,7 @@ class _IncrementerState extends State<Incrementer> {
                   controller: controller,
                   icon: Icons.add,
                   value: 1,
+                  onPressed: () => _updateControllerValue(1), // Augmente la valeur
                 ),
               ],
             ),
@@ -68,5 +88,11 @@ class _IncrementerState extends State<Incrementer> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

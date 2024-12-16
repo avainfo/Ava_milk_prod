@@ -19,22 +19,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late DateTime date;
-  late Map<String, StatefulWidget> pages;
 
   @override
   void initState() {
     super.initState();
     date = DateTime.now();
-    pages = {
-      "Ensemencement": MainPage(
-        title: "Ensemencement:0",
-        configs: Configurations.SEEDING_CONFIGURATIONS,
-        selectedDate: date,
-      ),
-      "Fabrication": Manufacturing(),
-      "Congélation": Freezing(),
-      "Lavage": Washing(),
-    };
   }
 
   @override
@@ -73,9 +62,32 @@ class _HomePageState extends State<HomePage> {
                 child: Wrap(
                   alignment: WrapAlignment.spaceAround,
                   runAlignment: WrapAlignment.spaceAround,
-                  children: pages.entries.map((entry) {
-                    return MainButton(title: entry.key, route: entry.value);
-                  }).toList(),
+                  children: [
+                    MainButton(
+                      title: "Ensemencement",
+                      route: MainPage(
+                        title: "Seeding:0",
+                        configs: Configurations.SEEDING_CONFIGURATIONS,
+                        selectedDate: date,
+                      ),
+                    ),
+                    MainButton(
+                      title: "Fabrication",
+                      route: MainPage(
+                        title: "Manufacturing:0",
+                        configs: Configurations.SEEDING_CONFIGURATIONS,
+                        selectedDate: date,
+                      ),
+                    ),
+                    MainButton(
+                      title: "Congélation",
+                      route: Freezing(),
+                    ),
+                    MainButton(
+                      title: "Lavage",
+                      route: Washing(),
+                    ),
+                  ],
                 ),
               ),
             ],

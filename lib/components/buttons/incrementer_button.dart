@@ -8,11 +8,13 @@ class IncrementerButton extends StatelessWidget {
     required this.controller,
     required this.icon,
     required this.value,
+    required this.onPressed,
   });
 
   final TextEditingController controller;
   final IconData icon;
   final int value;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +30,7 @@ class IncrementerButton extends StatelessWidget {
               backgroundColor: WidgetStatePropertyAll(Constants.red),
             ),
             color: Colors.white,
-            onPressed: () {
-              controller.text = (int.parse(controller.text) + value).toString();
-            },
+            onPressed: onPressed,
             icon: Icon(icon),
           );
         },

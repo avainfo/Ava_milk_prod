@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:ava_milk_prod/components/inputs/incrementer.dart';
 import 'package:ava_milk_prod/components/inputs/selector.dart';
+import 'package:ava_milk_prod/components/inputs/text_input.dart';
 import 'package:ava_milk_prod/pages/home_page.dart';
 import 'package:ava_milk_prod/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,7 @@ class _MainPageState extends State<MainPage> {
   late String title;
   late Map<String, StatefulWidget> config;
   late DateTime selectedDate;
+  Map<String, dynamic> inputData = {};
 
   @override
   void initState() {
@@ -33,6 +36,20 @@ class _MainPageState extends State<MainPage> {
     title = widget.title.split(":")[0];
     config = widget.configs[id];
     selectedDate = widget.selectedDate;
+    log("Date : $selectedDate");
+
+    for (var key in config.keys) {
+      if (config[key].runtimeType == Incrementer) {
+        inputData[key] = 0;
+      } else if (config[key].runtimeType == Selector) {
+        inputData[key] = [];
+      } else if(config[key].runtimeType == TextInput) {
+        inputData[key] = "";
+      } else {
+        inputData[key] = null;
+      }
+    }
+
     super.initState();
   }
 
@@ -44,6 +61,7 @@ class _MainPageState extends State<MainPage> {
     var height = size.height - safePadding;
 
     return Scaffold(
+      backgroundColor: Color(0xFFeeeeee),
       body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
@@ -99,7 +117,22 @@ class _MainPageState extends State<MainPage> {
                         width: width / 4,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: config.values.toList(),
+                          children: config.keys.map((e) {
+                            Widget w = config[e] as Widget;
+                            if (w.runtimeType == Incrementer) {
+                              return Incrementer(
+                                onValueChanged: (value) => inputData[e] = value,
+                              );
+                            } else if (w.runtimeType == Selector) {
+                              return Selector(
+                                buttons: (w as Selector).buttons,
+                                onValueChanged: (value) {
+                                  inputData[e] = value;
+                                },
+                              );
+                            }
+                            return (config[e] as Widget);
+                          }).toList(),
                         ),
                       ),
                     ],
@@ -114,9 +147,12 @@ class _MainPageState extends State<MainPage> {
                       NavButtons(
                         title: widget.configs.length == (id + 1) ? "Terminer" : "Suivant",
                         event: () {
+                          log(inputData.toString());
                           log((id + 1).toString());
                           log(widget.configs.length.toString());
                           // TODO : DatabaseConnection.sendData()
+                          log(selectedDate.toString());
+                          Constants.db.setData(inputData, selectedDate);
                           if (widget.configs.length == (id + 1)) {
                             Navigator.pushAndRemoveUntil(
                               context,

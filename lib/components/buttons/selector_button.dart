@@ -4,8 +4,9 @@ import '../../utils/constants.dart';
 
 class SelectorButton extends StatefulWidget {
   final String title;
+  final Function? onValueChanged;
 
-  const SelectorButton({super.key, required this.title});
+  const SelectorButton({super.key, required this.title, this.onValueChanged});
 
   @override
   State<SelectorButton> createState() => _SelectorButtonState();
@@ -27,6 +28,7 @@ class _SelectorButtonState extends State<SelectorButton> {
           onTap: () {
             setState(() {
               active = !active;
+              widget.onValueChanged!(widget.title);
             });
           },
           child: Container(

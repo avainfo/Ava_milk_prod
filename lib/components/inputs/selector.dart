@@ -1,16 +1,21 @@
+import 'dart:developer';
+
 import 'package:ava_milk_prod/components/buttons/selector_button.dart';
 import 'package:flutter/material.dart';
 
 class Selector extends StatefulWidget {
   final List<String> buttons;
+  final Function(List<String>)? onValueChanged;
 
-  const Selector({super.key, required this.buttons});
+  const Selector({super.key, required this.buttons, this.onValueChanged});
 
   @override
   State<Selector> createState() => _SelectorState();
 }
 
 class _SelectorState extends State<Selector> {
+  List<String> selectedButtons = [];
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -18,7 +23,7 @@ class _SelectorState extends State<Selector> {
     int i = 0;
 
     var widgetHeight = (height / 15 + 20) * (widget.buttons.length ~/ 2);
-    return Container(
+    return SizedBox(
       width: width / 4,
       // height: widgetHeight,
       child: Row(
@@ -39,7 +44,12 @@ class _SelectorState extends State<Selector> {
                     children: widget.buttons
                         .map((e) {
                           if (i < widget.buttons.length / 2) {
-                            return SelectorButton(title: widget.buttons[i++]);
+                            i++;
+                            return SelectorButton(title: widget.buttons[i - 1], onValueChanged: (title) {
+                              selectedButtons.add(title);
+                              log(title);
+                              widget.onValueChanged!(selectedButtons);
+                            });
                           }
                           return null;
                         })
@@ -56,7 +66,12 @@ class _SelectorState extends State<Selector> {
                     children: widget.buttons
                         .map((e) {
                           if (i < widget.buttons.length) {
-                            return SelectorButton(title: widget.buttons[i++]);
+                            i++;
+                            return SelectorButton(title: widget.buttons[i - 1], onValueChanged: (title) {
+                              selectedButtons.add(title);
+                              log(title);
+                              widget.onValueChanged!(selectedButtons);
+                            });
                           }
                           return null;
                         })
